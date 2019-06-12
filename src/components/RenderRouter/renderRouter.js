@@ -1,69 +1,100 @@
-import React, {Suspense, Component,lazy} from 'react'
+import React, {Suspense, Component, lazy} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom';
 import Loading from '../Loading/index';
 import PropTypes from 'prop-types';
-import {LocaleProvider,} from 'antd'
-import zh_CN from 'antd/lib/locale-provider/zh_CN'
-const routeFormat = (routes) => {
-    let arr = [];
-    routes.forEach(item => {
-        if (item.component) {
-            arr.push(item)
-        } else if (item.routes && item.routes.constructor === Array) {
-            arr = arr.concat(routeFormat(item.routes))
-        }
-    });
-    return arr
-};
+
 export default class RouterMap extends Component {
-    handleResize = () => {
-        this.forceUpdate()
-    };
-
-    componentDidMount() {
-        // window.onresize = throttle(this.handleResize, 500, 2000)
-    }
-
-    componentWillUnmount() {
-        window.onresize = null;
+    resultRender(result, Component) {
+        if (!result) {
+            return Component
+        } else if (result.constructor === Promise) {
+            return <Loadable fallback={<Loading/>}
+                             lazy={result}
+                             renderResolve={item => this.resultRender(item, Component)}
+                             renderReject={toPath => <Redirect to={toPath}/>}
+            />
+        } else if ((typeof result === 'string') || result.pathname) {
+            return <Redirect to={result}/>
+        }
     }
 
     render() {
         const {routes} = this.props;
-        const arr = routeFormat(routes);
-        const routerDom =arr.map((router, i) => {
-            const {component, routes = [], authentication: auth, ...reset} = router;
-            const Component = lazy(()=>component);
+        const routerDom = routes.map((router, i) => {
+            const {component, routes = [], stopActive, ...reset} = router;
+            let Template;
+            if (typeof component === 'string') {
+                let path;
+                if (component.substr(0, 2) === './') {
+                    path = component.substring(2)
+                } else if (component.substr(0, 1) === '/') {
+                    path = component.substring(1)
+                } else {
+                    path = component
+                }
+                Template = lazy(() => import('_p/' + path))
+            } else {
+                Template = component
+            }
             return (
                 <Route key={reset.path || i} {...reset} render={props => {
-                    if (auth && typeof auth === 'function') {
-                        const result = auth(props);
-                        if (!result || typeof result !== 'object') {
-                            throw `router.config.js--${reset.path} 路由配置里的 authentication函数必须返回一个对象`
-                        }
-                        const {isAuth, ...obj} = result;
-                        return isAuth ? <Component {...props} routes={routes}/>
-                            : <Redirect {...obj}/>
+                    if (stopActive && typeof stopActive === 'function') {
+                        const result = stopActive(props);
+                        return this.resultRender(result, <Template {...props} routes={routes}/>)
                     }
-                    return <Component {...props} routes={routes}/>
+                    return <Template {...props} routes={routes}/>
                 }}/>
             )
         });
         return (
-            <LocaleProvider locale={zh_CN}>
-                <Suspense fallback={<Loading/>}>
-                    <Switch>
-                        {routerDom}
-                    </Switch>
+            <Suspense fallback={<Loading/>}>
+                <Switch>
+                    {routerDom}
+                </Switch>
+            </Suspense>
 
-                </Suspense>
-            </LocaleProvider>
         )
     }
 }
 RouterMap.propTypes = {
     routes: PropTypes.array
 };
-RouterMap.defaultProps={
-    routes:[]
+RouterMap.defaultProps = {
+    routes: []
+};
+
+class Loadable extends React.Component {
+    state = {
+        AnotherComponent: 'init',
+        isErr: false
+    };
+
+    componentDidMount() {
+        this.props.lazy.then((obj) => {
+            this.setState({AnotherComponent: obj})
+        }, (err) => {
+            this.setState({AnotherComponent: err, isErr: true,})
+        })
+    }
+
+    render() {
+        let {AnotherComponent, isErr} = this.state;
+        const {renderResolve, renderReject, fallback} = this.props;
+        if (AnotherComponent === 'init') {
+            return fallback;
+        } else {
+            return isErr ? renderReject(AnotherComponent) : renderResolve(AnotherComponent)
+        }
+    }
+}
+
+Loadable.propTypes = {
+    renderReject: PropTypes.func,
+    renderResolve: PropTypes.func,
+};
+Loadable.defaultProps = {
+    renderReject: () => {
+    },
+    renderResolve: () => {
+    }
 }

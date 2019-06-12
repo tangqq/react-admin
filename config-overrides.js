@@ -1,5 +1,6 @@
 const varConfig = require('./modifyVars.config');
-const {override, fixBabelImports, addLessLoader} = require('customize-cra');
+const {override, fixBabelImports, addLessLoader,addWebpackAlias} = require('customize-cra');
+const alias = require('./webpack.config').resolve.alias;
 module.exports = override(
     fixBabelImports('import', {
         libraryName: 'antd',
@@ -9,7 +10,7 @@ module.exports = override(
     addLessLoader({
         javascriptEnabled: true,
         modifyVars: varConfig,
-    }), (config,env) => {
+    }), addWebpackAlias(alias),(config,env) => {
         if(process.env.NODE_ENV==='production'){
         config.optimization.minimizer[0].options.terserOptions.compress.drop_console=true;
         }
