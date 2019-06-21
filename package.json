@@ -16,7 +16,7 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
@@ -24,7 +24,9 @@
     "start": "set PORT=3002 && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,5 +36,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-styleguidist": "^9.1.7"
+  }
 }

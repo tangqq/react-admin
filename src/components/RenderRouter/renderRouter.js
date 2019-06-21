@@ -1,8 +1,11 @@
 import React, {Suspense, Component, lazy} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom';
-import Loading from '../Loading/index';
+import Loading from '../Loading/Loading';
 import PropTypes from 'prop-types';
 
+/**
+ * 配置路由，路由又配置JSON自动生成，包括路由拦截器的封装
+ */
 export default class RouterMap extends Component {
     resultRender(result, Component) {
         if (!result) {
@@ -57,13 +60,24 @@ export default class RouterMap extends Component {
     }
 }
 RouterMap.propTypes = {
-    routes: PropTypes.array
+    /**
+     * 路由配置项
+     */
+    routes: PropTypes.arrayOf(
+        PropTypes.shape({
+            /**
+             * 路由对应组件所在的位置，根路径未PageView
+             */
+            component:PropTypes.string,
+            path:PropTypes.string,
+        })
+    )
 };
 RouterMap.defaultProps = {
     routes: []
 };
 
-class Loadable extends React.Component {
+export class Loadable extends React.Component {
     state = {
         AnotherComponent: 'init',
         isErr: false
@@ -97,4 +111,4 @@ Loadable.defaultProps = {
     },
     renderResolve: () => {
     }
-}
+};

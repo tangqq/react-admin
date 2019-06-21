@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import RenderRouter from '../../components/RenderRouter/renderRouter'
 class index extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return <div>

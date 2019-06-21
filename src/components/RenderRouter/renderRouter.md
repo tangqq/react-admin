@@ -1,3 +1,7 @@
+参数配置如下:
+
+``` Markdown
+
 export default [
     {component: 'Home', routes: [
             {path: "/login", component: 'Login'},
@@ -5,7 +9,7 @@ export default [
                         return new Promise((resolve,reject)=>{
                             setTimeout(()=>{
                                 resolve(false)
-                            },20)
+                            },2000)
                         })
                 }},
             {path: "/p2", component: 'Page2'},
@@ -20,3 +24,5 @@ export default [
 
 
 ]
+
+```
