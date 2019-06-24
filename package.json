@@ -38,6 +38,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "react-docgen": "^4.1.1",
     "react-styleguidist": "^9.1.7"
   }
 }

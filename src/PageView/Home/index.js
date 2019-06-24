@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import RenderRouter from '../../components/RenderRouter/renderRouter'
+import {connect} from 'react-redux';
+import RenderRouter from '_c/RenderRouter/renderRouter'
+import {requireUserInfo} from "_p/Home/common.model";
 class index extends Component {
-
+    componentDidMount(){
+        this.props.updateData()
+    }
     render() {
+        console.log(this.props)
         return <div>
             Hello Page
             <Link to="/login">跳转到登陆</Link>
@@ -29,5 +34,12 @@ class index extends Component {
         </div>
     }
 }
-
-export default index
+function mapStateToProps(state){
+    return state.common
+}
+function mapPropsToDispatch(dispatch){
+    return {
+        updateData:()=>dispatch(requireUserInfo())
+    }
+}
+export default connect(mapStateToProps,mapPropsToDispatch)(index)

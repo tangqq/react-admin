@@ -1,5 +1,5 @@
 export default [
-    {component: 'Home', routes: [
+    {path:'/',component: 'Home', routes: [
             {path: "/login", component: 'Login'},
             {path: "/p1", component: 'Page1',stopActive:()=>{
                         return new Promise((resolve,reject)=>{
