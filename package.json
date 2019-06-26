@@ -10,6 +10,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "node-sass": "^4.11.0",
+    "postcss-px-to-viewport": "^1.1.0",
     "react": "^16.8.6",
     "react-app-rewired": "^2.1.1",
     "react-dom": "^16.8.6",
@@ -22,7 +23,9 @@
   },
   "scripts": {
     "start": "set PORT=3002 && react-app-rewired start",
+    "start:mobile": "set PORT=3005 && react-app-rewired start --mobile",
     "build": "react-app-rewired build",
+    "build:mobile": "set PUBLIC_URL=/m&& react-app-rewired build --mobile",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",

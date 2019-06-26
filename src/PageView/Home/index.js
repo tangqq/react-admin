@@ -3,14 +3,15 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import RenderRouter from '_c/RenderRouter/renderRouter'
 import {requireUserInfo} from "_p/Home/common.model";
+import _class from './home.module.less';
 class index extends Component {
     componentDidMount(){
-        this.props.updateData()
+        this.props.requireUserInfo()
+        // console.log(this.props)
     }
     render() {
-        console.log(this.props)
         return <div>
-            Hello Page
+                <div className={_class.title}>Hello Page</div>
             <Link to="/login">跳转到登陆</Link>
             <br/>
             <Link to="/p1">Page1</Link>
@@ -39,7 +40,7 @@ function mapStateToProps(state){
 }
 function mapPropsToDispatch(dispatch){
     return {
-        updateData:()=>dispatch(requireUserInfo())
+        requireUserInfo:()=>dispatch(requireUserInfo())
     }
 }
-export default connect(mapStateToProps,mapPropsToDispatch)(index)
+export default connect(mapStateToProps,{requireUserInfo})(index)
