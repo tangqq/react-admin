@@ -13,8 +13,6 @@ if (isM) {
     paths.appIndexJs = mobileIndexJs;
     paths.appBuild = mobileBuild;
 }
-console.log(require('react-scripts/config/paths'))
-
 module.exports = override(
     fixBabelImports('import', {
         libraryName: 'antd',

@@ -1,6 +1,6 @@
 import React, {Suspense, Component, lazy} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom';
-import Loading from '../Loading/Loading';
+import {Loading} from '_c';
 import PropTypes from 'prop-types';
 
 /**

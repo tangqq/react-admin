@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-class index extends Component {
+import {stop} from "_c/index";
+import {connect} from 'react-redux';
+class PageFour extends Component {
 
     render() {
         return <div>
@@ -10,4 +12,4 @@ class index extends Component {
     }
 }
 
-export default index
+export default stop()(PageFour)

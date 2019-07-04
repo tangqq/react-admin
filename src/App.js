@@ -9,7 +9,6 @@ import store from './reducer';
 import {LocaleProvider} from "antd";
 import _class from '_s/App.module.less'
 import zh_CN from "antd/lib/locale-provider/zh_CN";
-
 // Add this in your component file
 export default ()=>{
   return <Provider store={store}>

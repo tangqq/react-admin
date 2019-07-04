@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
+
+示例：
+```markdown
 import {Link} from 'react-router-dom';
 import {Loading, StopBox} from "_c/index";
 
-class index extends Component {
-
-    render() {
-        return <StopBox stopFunc={()=>{
+<StopBox stopFunc={()=>{
             return '/login'
         }}>
             <div>
@@ -13,7 +12,5 @@ class index extends Component {
                 <Link to="/">回到首页</Link>
             </div>
         </StopBox>
-    }
-}
 
-export default index
+```

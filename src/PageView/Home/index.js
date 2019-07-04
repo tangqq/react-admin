@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import RenderRouter from '_c/RenderRouter/renderRouter'
 import {requireUserInfo} from "_p/Home/common.model";
 import _class from './home.module.less';
+
 class index extends Component {
     componentDidMount(){
-        this.props.requireUserInfo()
-        // console.log(this.props)
+        this.props.requireUserInfo();
+
     }
     render() {
         return <div>
@@ -38,9 +39,6 @@ class index extends Component {
 function mapStateToProps(state){
     return state.common
 }
-function mapPropsToDispatch(dispatch){
-    return {
-        requireUserInfo:()=>dispatch(requireUserInfo())
-    }
-}
+
+
 export default connect(mapStateToProps,{requireUserInfo})(index)
