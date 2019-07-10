@@ -35,7 +35,7 @@ export default class RouterMap extends Component {
                 } else {
                     path = component
                 }
-                Template = lazy(() => import('_p/' + path))
+                Template = lazy(() => import('_m_p/' + path))
             } else {
                 Template = component
             }

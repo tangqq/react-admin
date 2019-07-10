@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Loading, StopBox} from "_c/index";
+import { StopBox} from "_c/index";
 
 class index extends Component {
 

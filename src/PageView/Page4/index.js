@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {stop} from "_c/index";
-import {connect} from 'react-redux';
 class PageFour extends Component {
 
     render() {

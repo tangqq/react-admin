@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import RenderRouter from '_c/RenderRouter/renderRouter'
-import {requireUserInfo} from "_p/Home/common.model";
+import {requireUserInfo} from "./common.model";
 import _class from './home.module.less';
 
 class index extends Component {

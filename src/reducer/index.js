@@ -1,7 +1,7 @@
 import {createStore} from 'redux';
 import { routerMiddleware} from 'connected-react-router';
 import thunk from 'redux-thunk';
-import {history} from "_C";
+import history from "_C/history.config";
 import {applyMiddleware, compose} from "redux";
 import createReducer from './combineModel'
 

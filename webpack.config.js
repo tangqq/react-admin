@@ -7,6 +7,7 @@ module.exports = {
             "_a": path.resolve(__dirname, 'src/action'),
             "_u": path.resolve(__dirname, 'src/util'),
             "_p": path.resolve(__dirname, 'src/PageView'),
+            "_m_p": path.resolve(__dirname, 'src/MobileView'),
             "_s": path.resolve(__dirname, 'src/styles'),
         }
     }
