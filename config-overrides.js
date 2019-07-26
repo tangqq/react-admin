@@ -32,7 +32,7 @@ module.exports = override(
         propList: ['*'],
         viewportUnit: 'vw',
         fontViewportUnit: 'vw',
-        selectorBlackList: ['bf'],
+        selectorBlackList: ['loading','loading-svg'],
         minPixelValue: 1,
         mediaQuery: false,
         replace: true,
